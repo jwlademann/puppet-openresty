@@ -11,7 +11,7 @@ match, err = ngx.re.match(uri, "^/geoserver/llc/([a-z0-9-]+)/")
 if match then
   local geoToken = match[1]
   ngx.log(ngx.INFO, "Found geotoken: " .. geoToken .. " checking validity")
-  if geoserver_token.check_token(accessToken, geoToken) then
+  if accessToken ~= nil and accessToken ~= '' and geoserver_token.check_token(accessToken, geoToken) then
      ngx.log(ngx.INFO, "Geotoken valid")
      authorised = true
      uri = ngx.re.sub(uri, "/" .. geoToken, "")
